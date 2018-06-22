@@ -192,8 +192,8 @@ public class MassDetectionTask extends AbstractTask {
 
                     boolean includeMass = false;
                     float featureMZ = (float)finishedPeak.curMzPeak();
-                    for (Float a : massesToKeep){
-                        float ppmDifference = (float)Math.abs((featureMZ - a)/featureMZ * 1000000.0);
+                    for (Float massToKeep : massesToKeep){
+                        float ppmDifference = (float)Math.abs((featureMZ - massToKeep)/featureMZ * 1000000.0);
                         if(ppmDifference < 10.0){
                             includeMass = true;
                             break;
