@@ -162,8 +162,6 @@ public class MassDetectionTask extends AbstractTask {
         startIndex.add(0);
 
         try {
-
-
             setStatus(TaskStatus.PROCESSING);
 
             logger.info("Started mass detector on " + dataFile);
@@ -200,6 +198,7 @@ public class MassDetectionTask extends AbstractTask {
                         }
                     }
                     if(includeMass == false){
+                        logger.info("Skipping");
                         continue;
                     }
 
