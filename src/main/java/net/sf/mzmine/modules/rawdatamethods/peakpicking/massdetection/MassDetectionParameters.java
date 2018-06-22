@@ -81,7 +81,7 @@ public class MassDetectionParameters extends SimpleParameterSet {
             "This string includes all the the ppm tolerance for masses to include", MZmineCore.getConfiguration().getRTFormat(), 10.0);
 
 
-    public MassDetectionMingParameters() {
+    public MassDetectionParameters() {
         super(new Parameter[] { dataFiles, scanSelection, massDetector, name ,outFilenameOption, filterMassString, filterMassPPM});
     }
 
