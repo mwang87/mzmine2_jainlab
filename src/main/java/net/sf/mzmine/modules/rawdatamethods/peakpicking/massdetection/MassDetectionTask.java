@@ -1,17 +1,17 @@
 /*
  * Copyright 2006-2015 The MZmine 2 Development Team
- * 
+ *
  * This file is part of MZmine 2.
- * 
+ *
  * MZmine 2 is free software; you can redistribute it and/or modify it under the
  * terms of the GNU General Public License as published by the Free Software
  * Foundation; either version 2 of the License, or (at your option) any later
  * version.
- * 
+ *
  * MZmine 2 is distributed in the hope that it will be useful, but WITHOUT ANY
  * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
  * A PARTICULAR PURPOSE. See the GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * MZmine 2; if not, write to the Free Software Foundation, Inc., 51 Franklin
  * St, Fifth Floor, Boston, MA 02110-1301 USA
@@ -60,9 +60,13 @@ public class MassDetectionTask extends AbstractTask {
     // Mass detector
     private MZmineProcessingStep<MassDetector> massDetector;
 
-    // for outputting file 
+    // for outputting file
     private File outFilename;
     private boolean saveToCDF;
+
+
+    private String filterMassString;
+    private double filterMassPPM;
 
     /**
      * @param dataFile
@@ -83,10 +87,16 @@ public class MassDetectionTask extends AbstractTask {
 
         this.saveToCDF = parameters.getParameter(
                 MassDetectionParameters.outFilenameOption).getValue();
-        
+
         this.outFilename = MassDetectionParameters.outFilenameOption
                         .getEmbeddedParameter().getValue();
-        
+
+        this.filterMassString = parameters
+                .getParameter(MassDetectionParameters.filterMassString).getValue();
+
+        this.filterMassPPM = parameters
+                .getParameter(MassDetectionParameters.filterMassPPM).getValue();
+
 //        this.outFilename = parameters.getParameter(
 //                MassDetectionParameters.outFilenameOption
 //                        .getEmbeddedParameter())
@@ -118,6 +128,15 @@ public class MassDetectionTask extends AbstractTask {
      * @see Runnable#run()
      */
     public void run() {
+        logger.info(filterMassString);
+        String [] massSplits = filterMassString.split(";");
+        List<Float> massesToKeep = new ArrayList<Float>();
+        for (String a : massSplits){
+            float massToKeep = Float.parseFloat(a);
+            massesToKeep.add(new Float(massToKeep));
+            logger.info(a);
+        }
+
         int indexOfPeriod = dataFile.getName().indexOf(".");
 
         //String massOutLocation = outFilename.getPath()+dataFile.getName().substring(0,indexOfPeriod)+".CDF";
@@ -237,12 +256,12 @@ public class MassDetectionTask extends AbstractTask {
                 // create file
                 writer.create();
 
-                ArrayDouble.D1  arr_massValues          = new ArrayDouble.D1(dim_massValues         .getLength()); 
-                ArrayDouble.D1  arr_intensityValues     = new ArrayDouble.D1(dim_intensityValues    .getLength()); 
-                ArrayDouble.D1  arr_scanIndex           = new ArrayDouble.D1(dim_scanIndex          .getLength()); 
-                ArrayDouble.D1  arr_scanAcquisitionTime = new ArrayDouble.D1(dim_scanAcquisitionTime.getLength()); 
-                ArrayDouble.D1  arr_totalIntensity      = new ArrayDouble.D1(dim_totalIntensity     .getLength()); 
-                ArrayDouble.D1  arr_pointsInScans       = new ArrayDouble.D1(dim_pointsInScans      .getLength()); 
+                ArrayDouble.D1  arr_massValues          = new ArrayDouble.D1(dim_massValues         .getLength());
+                ArrayDouble.D1  arr_intensityValues     = new ArrayDouble.D1(dim_intensityValues    .getLength());
+                ArrayDouble.D1  arr_scanIndex           = new ArrayDouble.D1(dim_scanIndex          .getLength());
+                ArrayDouble.D1  arr_scanAcquisitionTime = new ArrayDouble.D1(dim_scanAcquisitionTime.getLength());
+                ArrayDouble.D1  arr_totalIntensity      = new ArrayDouble.D1(dim_totalIntensity     .getLength());
+                ArrayDouble.D1  arr_pointsInScans       = new ArrayDouble.D1(dim_pointsInScans      .getLength());
 
                 for (int i = 0; i < allMZ.size(); i++ ){
                     arr_massValues.set(i,allMZ.get(i));
@@ -285,13 +304,13 @@ public class MassDetectionTask extends AbstractTask {
         }
         catch (InvalidRangeException e) {
         e.printStackTrace();
-        } 
+        }
 
         finally {
             if (null != writer){
               try {
                 writer.close();
-              } 
+              }
               catch (IOException ioe) {
                 ioe.printStackTrace();
               }

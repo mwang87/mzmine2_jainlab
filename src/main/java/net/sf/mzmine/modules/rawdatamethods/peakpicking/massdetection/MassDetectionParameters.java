@@ -1,17 +1,17 @@
 /*
  * Copyright 2006-2015 The MZmine 2 Development Team
- * 
+ *
  * This file is part of MZmine 2.
- * 
+ *
  * MZmine 2 is free software; you can redistribute it and/or modify it under the
  * terms of the GNU General Public License as published by the Free Software
  * Foundation; either version 2 of the License, or (at your option) any later
  * version.
- * 
+ *
  * MZmine 2 is distributed in the hope that it will be useful, but WITHOUT ANY
  * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
  * A PARTICULAR PURPOSE. See the GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * MZmine 2; if not, write to the Free Software Foundation, Inc., 51 Franklin
  * St, Fifth Floor, Boston, MA 02110-1301 USA
@@ -70,12 +70,19 @@ public class MassDetectionParameters extends SimpleParameterSet {
 	    "The rest of the file name will be the current file being processed." +
 	    "If the file already exists, it will be overwritten.",
 	    "CDF");
-    
+
     public static final OptionalParameter <FileNameParameter> outFilenameOption
             = new OptionalParameter <> (outFilename);
-    
-    public MassDetectionParameters() {
-        super(new Parameter[] { dataFiles, scanSelection, massDetector, name ,outFilenameOption});
+
+    public static final StringParameter filterMassString = new StringParameter("FilterMassString",
+            "This string includes all the masses that should be included in the output. The format is as follow: <mz>-<ppm>. Multiple masses can be included and separated by a semicolon.", "294.101348876953");
+
+    public static final DoubleParameter filterMassPPM = new DoubleParameter("FilterMassPPM",
+            "This string includes all the the ppm tolerance for masses to include", MZmineCore.getConfiguration().getRTFormat(), 10.0);
+
+
+    public MassDetectionMingParameters() {
+        super(new Parameter[] { dataFiles, scanSelection, massDetector, name ,outFilenameOption, filterMassString, filterMassPPM});
     }
 
     @Override

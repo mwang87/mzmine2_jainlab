@@ -89,7 +89,6 @@ import net.sf.mzmine.modules.rawdatamethods.peakpicking.adap3d.ADAP3DModule;
 import net.sf.mzmine.modules.rawdatamethods.peakpicking.gridmass.GridMassModule;
 import net.sf.mzmine.modules.rawdatamethods.peakpicking.manual.ManualPeakPickerModule;
 import net.sf.mzmine.modules.rawdatamethods.peakpicking.massdetection.MassDetectionModule;
-import net.sf.mzmine.modules.rawdatamethods.peakpicking.massdetection.massdetectionming.MassDetectionMingModule;
 import net.sf.mzmine.modules.rawdatamethods.peakpicking.msms.MsMsPeakPickerModule;
 import net.sf.mzmine.modules.rawdatamethods.peakpicking.targetedpeakdetection.TargetedPeakDetectionModule;
 import net.sf.mzmine.modules.rawdatamethods.rawdataexport.RawDataExportModule;
