@@ -193,7 +193,6 @@ public class MassDetectionTask extends AbstractTask {
                         }
                     }
                     if(includeMass == false){
-                        logger.info("Skipping");
                         continue;
                     }
 
