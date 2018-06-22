@@ -179,12 +179,7 @@ public class MassDetectionTask extends AbstractTask {
                 DataPoint mzPeaks[] = detector.getMassValues(scan,
                         massDetector.getParameterSet());
 
-                SimpleMassList newMassList = new SimpleMassList(name, scan, mzPeaks);
-
-                // Add new mass list to the scan
-                scan.addMassList(newMassList);
-
-                curTotalIntensity = 0;
+                ArrayList<DataPoint> newMZPeaksList = newArrayList<DataPoint>();
                 for (int a=0;a<mzPeaks.length;a++){
                     DataPoint curMzPeak = mzPeaks[a];
 
@@ -201,6 +196,23 @@ public class MassDetectionTask extends AbstractTask {
                         logger.info("Skipping");
                         continue;
                     }
+
+                    newMZPeaksList.add(curMzPeak);
+                }
+
+                mzPeaks = new DataPoint[newMZPeaksList.size()];
+                for (int i =0; i < newMZPeaksList.size(); i++){
+                    mzPeaks[i] = newMZPeaksList.get(i);
+                }
+
+                SimpleMassList newMassList = new SimpleMassList(name, scan, mzPeaks);
+
+                // Add new mass list to the scan
+                scan.addMassList(newMassList);
+
+                curTotalIntensity = 0;
+                for (int a=0;a<mzPeaks.length;a++){
+                    DataPoint curMzPeak = mzPeaks[a];
 
                     allMZ.add(curMzPeak.getMZ());
                     allIntensities.add(curMzPeak.getIntensity());
