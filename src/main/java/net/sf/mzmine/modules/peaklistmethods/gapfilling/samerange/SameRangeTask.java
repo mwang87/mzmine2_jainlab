@@ -184,10 +184,10 @@ class SameRangeTask extends AbstractTask {
 	assert rtRange != null;
 
 	Range<Double> mzRangeWithTol = mzTolerance.getToleranceRange(mzRange);
-    Range<Double> rtRange = rtTolerance.getToleranceRange(row.getAverageRT());
+    Range<Double> rtRangeWithTol = rtTolerance.getToleranceRange(row.getAverageRT());
 
 	// Get scan numbers
-	int[] scanNumbers = column.getScanNumbers(1, rtRange);
+	int[] scanNumbers = column.getScanNumbers(1, rtRangeWithTol);
 
 	boolean dataPointFound = false;
 
