@@ -184,7 +184,7 @@ class SameRangeTask extends AbstractTask {
 	assert rtRange != null;
 
 	Range<Double> mzRangeWithTol = mzTolerance.getToleranceRange(mzRange);
-    Range<Double> rtRangeWithTol = rtTolerance.getToleranceRange(row.getAverageRT());
+    Range<Double> rtRangeWithTol = RTTolerance.getToleranceRange(row.getAverageRT());
 
 	// Get scan numbers
 	int[] scanNumbers = column.getScanNumbers(1, rtRangeWithTol);
