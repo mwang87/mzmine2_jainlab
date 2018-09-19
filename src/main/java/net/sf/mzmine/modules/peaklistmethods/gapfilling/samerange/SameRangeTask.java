@@ -36,7 +36,7 @@ import net.sf.mzmine.datamodel.impl.SimplePeakListRow;
 import net.sf.mzmine.modules.peaklistmethods.qualityparameters.QualityParameters;
 import net.sf.mzmine.parameters.ParameterSet;
 import net.sf.mzmine.parameters.parametertypes.tolerances.MZTolerance;
-import net.sf.mzmine.parameters.parametertypes.tolerances.RTToleranceParameter;
+import net.sf.mzmine.parameters.parametertypes.tolerances.RTTolerance;
 import net.sf.mzmine.taskcontrol.AbstractTask;
 import net.sf.mzmine.taskcontrol.TaskStatus;
 import net.sf.mzmine.util.RangeUtils;
@@ -53,7 +53,7 @@ class SameRangeTask extends AbstractTask {
 
     private String suffix;
     private MZTolerance mzTolerance;
-    private RTToleranceParameter RTTolerance;
+    private RTTolerance RTTolerance;
     private boolean removeOriginal;
 
     private int processedRows, totalRows;
